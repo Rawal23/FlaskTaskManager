@@ -1,27 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h2>Update Task</h2>
-    <form method="POST">
-        <label>Title:</label><br>
-        <input type="text" name="title" value="{{ task.title }}" required><br><br>
+    <div class="card p-4">
+        <h3 class="mb-3">Create New Task</h3>
+        <form method="POST" action="{{ url_for('create') }}">
+            <div class="mb-3">
+                <label class="form-label">Task Title</label>
+                <input type="text" name="title" class="form-control" placeholder="Enter task title" required>
+            </div>
 
-        <label>Description:</label><br>
-        <textarea name="description">{{ task.description }}</textarea><br><br>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea name="description" class="form-control" rows="3" placeholder="Task details"></textarea>
+            </div>
 
-        <label>Status:</label><br>
-        <select name="status">
-            <option value="To Do" {% if task.status == 'To Do' %}selected{% endif %}>To Do</option>
-            <option value="In Progress" {% if task.status == 'In Progress' %}selected{% endif %}>In Progress</option>
-            <option value="Done" {% if task.status == 'Done' %}selected{% endif %}>Done</option>
-        </select><br><br>
+            <div class="mb-3">
+                <label class="form-label">Priority</label>
+                <select name="priority" class="form-select">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
 
-        <label>Priority:</label><br>
-        <select name="priority">
-            <option value="Low" {% if task.priority == 'Low' %}selected{% endif %}>Low</option>
-            <option value="Medium" {% if task.priority == 'Medium' %}selected{% endif %}>Medium</option>
-            <option value="High" {% if task.priority == 'High' %}selected{% endif %}>High</option>
-        </select><br><br>
-
-        <button type="submit">Update Task</button>
-    </form>
+            <button type="submit" class="btn btn-success">Update Task</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
 {% endblock %}

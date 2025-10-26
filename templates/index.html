@@ -1,13 +1,56 @@
 {% extends 'base.html' %}
 {% block content %}
-    <a href="{{ url_for('create') }}">Add New Task</a>
-    <ul>
-{% for task in tasks %}
-  <li>{{ task.title }} - {{ task.status }} - {{ task.priority }}
-       <a href="{{ url_for('update_task', task_id=task.id) }}">Edit</a>
-      <a href="{{ url_for('delete_task', task_id=task.id) }}">Delete</a>
-  </li>
-{% endfor %}
-</ul>
+    <h2 class="mb-4">My Tasks</h2>
+
+    {% if tasks %}
+        <div class="row">
+            {% for task in tasks %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">{{ task.title }}</h5>
+
+                            <p class="mb-2">
+                                <strong>Status:</strong>
+                                <span class="badge
+                                    {% if task.status == 'Done' %}bg-success
+                                    {% elif task.status == 'In Progress' %}bg-warning text-dark
+                                    {% else %}bg-secondary{% endif %}">
+                                    {{ task.status }}
+                                </span>
+                            </p>
+
+                            <p class="mb-2">
+                                <strong>Priority:</strong>
+                                <span class="badge
+                                    {% if task.priority == 'High' %}bg-danger
+                                    {% elif task.priority == 'Medium' %}bg-primary
+                                    {% else %}bg-success{% endif %}">
+                                    {{ task.priority }}
+                                </span>
+                            </p>
+
+                            <p class="text-muted">
+                                <strong>Description:</strong><br>
+                                {{ task.description or "No description" }}
+                            </p>
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="{{ url_for('update_task', task_id=task.id) }}" class="btn btn-outline-warning btn-sm">
+                                    ✏️ Edit
+                                </a>
+                                <a href="{{ url_for('delete_task', task_id=task.id) }}" class="btn btn-outline-danger btn-sm">
+                                    🗑 Delete
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center py-4 shadow-sm">
+            No tasks yet. <a href="{{ url_for('create') }}" class="alert-link">Create one now!</a>
+        </div>
+    {% endif %}
 {% endblock %}
-<!--test-->
