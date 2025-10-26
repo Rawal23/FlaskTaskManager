@@ -30,4 +30,4 @@ A simple task management web application built with Flask and SQLite.
 4. **Install dependencies:**  \
     pip install flask flask_sqlalchemy
 
-5. **Run the application :)**
+5. **Run the application**
