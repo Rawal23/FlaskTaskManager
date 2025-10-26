@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form method="POST">
+    <form method="POST" action="{{ url_for('create') }}">
         <input type="text" name="title" placeholder="Task Title" required>
         <button type="submit">Create</button>
     </form>
